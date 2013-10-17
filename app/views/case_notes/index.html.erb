@@ -1,0 +1,31 @@
+<h1>Listing case_notes</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Client</th>
+    <th>Service</th>
+    <th>Subject</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @case_notes.each do |case_note| %>
+  <tr>
+    <td><%= case_note.user %></td>
+    <td><%= case_note.client %></td>
+    <td><%= case_note.service %></td>
+    <td><%= case_note.subject %></td>
+    <td><%= case_note.body %></td>
+    <td><%= link_to 'Show', case_note %></td>
+    <td><%= link_to 'Edit', edit_case_note_path(case_note) %></td>
+    <td><%= link_to 'Destroy', case_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Case note', new_case_note_path %>

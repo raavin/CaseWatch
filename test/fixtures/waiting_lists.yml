@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  consumer: 
+  service: 
+  category: 
+  referral_date: 2013-10-17 14:18:01
+  acceptance_date: 2013-10-17 14:18:01
+  completed_date: 2013-10-17 14:18:01
+
+two:
+  consumer: 
+  service: 
+  category: 
+  referral_date: 2013-10-17 14:18:01
+  acceptance_date: 2013-10-17 14:18:01
+  completed_date: 2013-10-17 14:18:01

@@ -1,0 +1,41 @@
+<%= form_for(@waiting_list) do |f| %>
+  <% if @waiting_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@waiting_list.errors.count, "error") %> prohibited this waiting_list from being saved:</h2>
+
+      <ul>
+      <% @waiting_list.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :consumer %><br />
+    <%= f.text_field :consumer %>
+  </div>
+  <div class="field">
+    <%= f.label :service %><br />
+    <%= f.text_field :service %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br />
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :referral_date %><br />
+    <%= f.datetime_select :referral_date %>
+  </div>
+  <div class="field">
+    <%= f.label :acceptance_date %><br />
+    <%= f.datetime_select :acceptance_date %>
+  </div>
+  <div class="field">
+    <%= f.label :completed_date %><br />
+    <%= f.datetime_select :completed_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

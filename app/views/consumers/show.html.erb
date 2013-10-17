@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Firstname:</b>
+  <%= @consumer.firstname %>
+</p>
+
+<p>
+  <b>Lastname:</b>
+  <%= @consumer.lastname %>
+</p>
+
+<p>
+  <b>Birthdate:</b>
+  <%= @consumer.birthdate %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @consumer.country %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @consumer.gender %>
+</p>
+
+
+<%= link_to 'Edit', edit_consumer_path(@consumer) %> |
+<%= link_to 'Back', consumers_path %>

@@ -1,0 +1,31 @@
+<h1>Listing expenditures</h1>
+
+<table>
+  <tr>
+    <th>Client</th>
+    <th>User</th>
+    <th>Service</th>
+    <th>Description</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @expenditures.each do |expenditure| %>
+  <tr>
+    <td><%= expenditure.client %></td>
+    <td><%= expenditure.user %></td>
+    <td><%= expenditure.service %></td>
+    <td><%= expenditure.description %></td>
+    <td><%= expenditure.amount %></td>
+    <td><%= link_to 'Show', expenditure %></td>
+    <td><%= link_to 'Edit', edit_expenditure_path(expenditure) %></td>
+    <td><%= link_to 'Destroy', expenditure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Expenditure', new_expenditure_path %>

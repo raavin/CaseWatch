@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Consumer:</b>
+  <%= @waiting_list.consumer %>
+</p>
+
+<p>
+  <b>Service:</b>
+  <%= @waiting_list.service %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @waiting_list.category %>
+</p>
+
+<p>
+  <b>Referral date:</b>
+  <%= @waiting_list.referral_date %>
+</p>
+
+<p>
+  <b>Acceptance date:</b>
+  <%= @waiting_list.acceptance_date %>
+</p>
+
+<p>
+  <b>Completed date:</b>
+  <%= @waiting_list.completed_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_waiting_list_path(@waiting_list) %> |
+<%= link_to 'Back', waiting_lists_path %>

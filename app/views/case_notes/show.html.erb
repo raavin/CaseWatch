@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @case_note.user %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @case_note.client %>
+</p>
+
+<p>
+  <b>Service:</b>
+  <%= @case_note.service %>
+</p>
+
+<p>
+  <b>Subject:</b>
+  <%= @case_note.subject %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @case_note.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_case_note_path(@case_note) %> |
+<%= link_to 'Back', case_notes_path %>
