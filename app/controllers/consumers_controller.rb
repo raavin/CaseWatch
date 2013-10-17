@@ -1,4 +1,10 @@
 class ConsumersController < ApplicationController
+    before_filter :authenticate_user!
+    layout "application"
+    cattr_reader :per_page
+    @@per_page = 50
+    filter_access_to :all
+  
   # GET /consumers
   # GET /consumers.json
   def index

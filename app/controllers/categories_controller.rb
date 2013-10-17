@@ -1,8 +1,15 @@
 class CategoriesController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :load_services, :except => :destroy
+  layout "admin"
+  cattr_reader :per_page
+  @@per_page = 50
+  filter_access_to :all
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @services = Service.find(:all, :order => 'service_name')
+    @categories = Category.paginate :page => 1, :order => 'name'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -78,6 +85,12 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to categories_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+    def load_services
+      @services = Service.all
     end
   end
 end

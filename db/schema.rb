@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131017031801) do
+ActiveRecord::Schema.define(:version => 20131017095907) do
 
   create_table "case_notes", :force => true do |t|
     t.integer  "user_id"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(:version => 20131017031801) do
   end
 
   add_index "consumers", ["country_id"], :name => "index_consumers_on_country_id"
+
+  create_table "countries", :force => true do |t|
+    t.string   "iso"
+    t.string   "name"
+    t.string   "printable_name"
+    t.string   "iso3"
+    t.integer  "numcode"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "expenditures", :force => true do |t|
     t.integer  "consumer_id"

@@ -1,8 +1,16 @@
 class CaseNotesController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :get_client
+  before_filter :load_services, :except => :destroy
+  layout "case_note"
+  cattr_reader :per_page
+  @@per_page = 50
+  filter_access_to :all
+
   # GET /case_notes
   # GET /case_notes.json
   def index
-    @case_notes = CaseNote.all
+    @case_notes = @client.case_notes.paginate :page => params[:page], :per_page => 10, :order => "created_at DESC"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,4 +88,15 @@ class CaseNotesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  
+  def get_client
+    @client = Client.find(params[:client_id])
+  end 
+
+  def load_services
+    @services   = Service.all
+  end
+end
 end
