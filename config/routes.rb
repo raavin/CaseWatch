@@ -3,14 +3,21 @@ Smhow::Application.routes.draw do
   resources :waiting_lists
   resources :services
   resources :roles
-  resources :expenditures
+  resources :expenditures, :only => [:index]
   resources :categories
   resources :case_notes
-  resources :consumers
+  resources :consumers, :has_many => [:case_notes, :expenditures]
+  #resources :users
 
   devise_for :users
 
-  root :to => "services#index"
+  root :to => "consumers#index"
+
+  #map.resources :messages
+  #map.allexpenditures '/all_expenditures', :controller => 'expenditures', :action => 'all'
+ 
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

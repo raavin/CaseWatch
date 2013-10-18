@@ -3,7 +3,7 @@ class ConsumersController < ApplicationController
     layout "application"
     cattr_reader :per_page
     @@per_page = 50
-    filter_access_to :all
+    #filter_access_to :all
   
   # GET /consumers
   # GET /consumers.json

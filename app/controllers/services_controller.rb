@@ -1,8 +1,14 @@
 class ServicesController < ApplicationController
+  before_filter :authenticate_user!
+  layout "admin"
+  cattr_reader :per_page
+  @@per_page = 50
+  filter_access_to :all
+  
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
+    @services = Service.paginate :page => 1, :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb

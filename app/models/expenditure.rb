@@ -1,5 +1,5 @@
 class Expenditure < ActiveRecord::Base
-  belongs_to :client
+  belongs_to :consumer
   belongs_to :user
   belongs_to :service
 
