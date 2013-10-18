@@ -1,30 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", client_expenditures_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_client_expenditure_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", client_expenditure_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+                <p>
+          <b><%= t("activerecord.attributes.expenditure.user_id", :default => t("activerecord.labels.user_id", :default => "Receipt Number")) %>:</b>
+          <%= @expenditure.id %>
+          <span class="description"> <--Write this number on receipt</span>
+        </p>
+        
+        <p>
+          <b><%= t("activerecord.attributes.expenditure.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
+          <%= @expenditure.user.email %>
+        </p>
 
-<p>
-  <b>Client:</b>
-  <%= @expenditure.client %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.expenditure.client_id", :default => t("activerecord.labels.client_id", :default => "Client")) %>:</b>
+          <%= @expenditure.client.first_name %> <%= @expenditure.client.last_name %> 
+        </p>
 
-<p>
-  <b>User:</b>
-  <%= @expenditure.user %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.expenditure.service_id", :default => t("activerecord.labels.service_id", :default => "Service")) %>:</b>
+          <%= @expenditure.service.service_name %>
+        </p>
 
-<p>
-  <b>Service:</b>
-  <%= @expenditure.service %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.expenditure.subject", :default => t("activerecord.labels.subject", :default => "Amount")) %>:</b>
+          <%= number_to_currency(@expenditure.amount)%>
+        </p>
 
-<p>
-  <b>Description:</b>
-  <%= @expenditure.description %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.expenditure.body", :default => t("activerecord.labels.body", :default => "Description")) %>:</b>
+          <%= @expenditure.description %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_client_expenditure_path(@client,@expenditure), :class => "button" %> 
+        <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", client_expenditure_path(@client,@expenditure), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Amount:</b>
-  <%= @expenditure.amount %>
-</p>
-
-
-<%= link_to 'Edit', edit_expenditure_path(@expenditure) %> |
-<%= link_to 'Back', expenditures_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

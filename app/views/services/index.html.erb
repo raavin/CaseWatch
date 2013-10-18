@@ -1,29 +1,50 @@
-<h1>Listing services</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", services_path  %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_service_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Services</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
+										<th>
+					<%= t("activerecord.attributes.service.service_name", :default => t("activerecord.labels.service_name", :default => "Service_name")) %>
+</th>
+					          <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @services.each do |service| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= service.id %>
+          </td>
+										<td>
+						<%= link_to service.service_name, service_path(service) %>
+					</td>
+										<td>
+            <%= service.created_at %>
+          </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", service_path(service) %> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_service_path(service) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", service_path(service), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+        <%= will_paginate @services  %>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Service name</th>
-    <th>Description</th>
-    <th>Min age</th>
-    <th>Max age</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @services.each do |service| %>
-  <tr>
-    <td><%= service.service_name %></td>
-    <td><%= service.description %></td>
-    <td><%= service.min_age %></td>
-    <td><%= service.max_age %></td>
-    <td><%= link_to 'Show', service %></td>
-    <td><%= link_to 'Edit', edit_service_path(service) %></td>
-    <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Service', new_service_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

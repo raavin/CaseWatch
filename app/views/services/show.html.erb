@@ -1,25 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", services_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_service_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", service_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+        <p>
+          <b><%= t("activerecord.attributes.service.service_name", :default => t("activerecord.labels.service_name", :default => "Service name")) %>:</b>
+          <%= @service.service_name %>
+        </p>
 
-<p>
-  <b>Service name:</b>
-  <%= @service.service_name %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.service.description", :default => t("activerecord.labels.description", :default => "Description")) %>:</b>
+          <%= @service.description %>
+        </p>
 
-<p>
-  <b>Description:</b>
-  <%= @service.description %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.service.min_age", :default => t("activerecord.labels.min_age", :default => "Min age")) %>:</b>
+          <%= @service.min_age %>
+        </p>
 
-<p>
-  <b>Min age:</b>
-  <%= @service.min_age %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.service.max_age", :default => t("activerecord.labels.max_age", :default => "Max age")) %>:</b>
+          <%= @service.max_age %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_service_path(@service), :class => "button" %> 
+        <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", service_path(@service), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Max age:</b>
-  <%= @service.max_age %>
-</p>
-
-
-<%= link_to 'Edit', edit_service_path(@service) %> |
-<%= link_to 'Back', services_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

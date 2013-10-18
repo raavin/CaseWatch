@@ -1,33 +1,92 @@
-<h1>Listing waiting_lists</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", waiting_lists_path  %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Referrals</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
+										<th>
+					<%= t("activerecord.attributes.waiting_list.client_id", :default => t("activerecord.labels.client_name", :default => "Client Name")) %>
+</th>
+					          <th><%= t("web-app-theme.birth_date", :default => "Birth Date")  %></th>
+					          <th><%= t("web-app-theme.gender", :default => "Gender")  %></th>
+					          <th><%= t("web-app-theme.age", :default => "Age")  %></th>
+					          <th><%= t("web-app-theme.service", :default => "Service")  %></th>
+					          <th><%= t("web-app-theme.category", :default => "Category")  %></th>
+					          <th><%= t("web-app-theme.status", :default => "Status")  %></th>
+					          <th><%= t("web-app-theme.wait_time", :default => "Wait Time")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @waiting_lists.each do |waiting_list| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= waiting_list.id %>
+          </td>
+										<td>
+						<%= link_to waiting_list.client.first_name + " " + waiting_list.client.last_name, waiting_list_path(waiting_list) %>
+					</td>
+ <td>
+        <%= nice_date waiting_list.client.birth_date %>
+    </td>
+    <td>
+        <%= male_or_female waiting_list.client.gender %>
+    </td>
+    <td>
+        <%= age_now = age_at(Date.today, waiting_list.client.birth_date)
+        if age_now > 24
+        '<div id="wrong_age">' + h(age_now) + '</div>'
+        elsif age_now < 12
+        '<div id="wrong_age">' + h(age_now) + '</div>'
+        else
+        age_now
+        end %>
+    </td>
+    <%# waiting_list.service = Service.find(waiting_list.service_id) %>
+    <td>
+        <%= waiting_list.service.service_name %>
+    </td>
+    <% waiting_list.category = Category.find(waiting_list.category_id) %>
+    <td>
+        <%= waiting_list.category.name %>
+    </td>
+    <td>
+      <% if waiting_list.accepted_date.nil? %>
+        <%= link_to 'Accept', :action => 'accept', :id => waiting_list.id %>
+    <% elsif waiting_list.completed_date.nil? %>
+    <%= link_to 'Complete', :action => 'complete', :id => waiting_list.id %>
+    <% else %>
+    Done
+    <% end %>
+    </td>
+  
+  <td>
+      <% if waiting_list.accepted_date.nil? %>
+        <%= distance_of_time_in_words(waiting_list.referral_date, Time.now) %>
+    <% else %>
+    <%= distance_of_time_in_words(waiting_list.referral_date, waiting_list.accepted_date) %>
+    <% end %>
+        
+    </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", waiting_list_path(waiting_list), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+        <%= will_paginate @waiting_lists  %>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Consumer</th>
-    <th>Service</th>
-    <th>Category</th>
-    <th>Referral date</th>
-    <th>Acceptance date</th>
-    <th>Completed date</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @waiting_lists.each do |waiting_list| %>
-  <tr>
-    <td><%= waiting_list.consumer %></td>
-    <td><%= waiting_list.service %></td>
-    <td><%= waiting_list.category %></td>
-    <td><%= waiting_list.referral_date %></td>
-    <td><%= waiting_list.acceptance_date %></td>
-    <td><%= waiting_list.completed_date %></td>
-    <td><%= link_to 'Show', waiting_list %></td>
-    <td><%= link_to 'Edit', edit_waiting_list_path(waiting_list) %></td>
-    <td><%= link_to 'Destroy', waiting_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Waiting list', new_waiting_list_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

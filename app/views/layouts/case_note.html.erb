@@ -29,6 +29,8 @@
         <ul class="wat-cf">
           <li <% if params[:controller] == "clients" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "Clients"), clients_path %></li>
           <li <% if params[:controller] == "waiting_lists" %> class="active"<%end%>><%= link_to t("web-app-theme.waiting_lists", :default => "Referrals"), waiting_lists_path %></li>
+          <li <% if params[:controller] == "expenditires" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "#{@client.first_name}'s Expenditures"), client_expenditures_path %></li>
+          <li <% if params[:controller] == "case_notes" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "#{@client.first_name}'s Case Notes"), client_case_notes_path %></li>
         </ul>
       </div>
     </div>    

@@ -1,41 +1,37 @@
-<%= form_for(@waiting_list) do |f| %>
-  <% if @waiting_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@waiting_list.errors.count, "error") %> prohibited this waiting_list from being saved:</h2>
 
-      <ul>
-      <% @waiting_list.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="group">
+    <%= f.label :client_id, t("activerecord.attributes.waiting_list.client_id", :default => "Client"), :class => :label %>
+    <%= f.text_field :client_id, :class => 'text_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
 
-  <div class="field">
-    <%= f.label :consumer %><br />
-    <%= f.text_field :consumer %>
+  <div class="group">
+    <%= f.label :service_id, t("activerecord.attributes.waiting_list.service_id", :default => "Service"), :class => :label %>
+    <%= f.text_field :service_id, :class => 'text_field' %>
+    <span class="description">Ex: a simple text</span>
   </div>
-  <div class="field">
-    <%= f.label :service %><br />
-    <%= f.text_field :service %>
+
+  <div class="group">
+    <%= f.label :referral_date, t("activerecord.attributes.waiting_list.referral_date", :default => "Referral date"), :class => :label %>
+    <%= f.datetime_select :referral_date, :class => 'datetime_select' %>
+    <span class="description">Ex: a simple text</span>
   </div>
-  <div class="field">
-    <%= f.label :category %><br />
-    <%= f.text_field :category %>
+
+  <div class="group">
+    <%= f.label :accepted_date, t("activerecord.attributes.waiting_list.accepted_date", :default => "Accepted date"), :class => :label %>
+    <%= f.datetime_select :accepted_date, :class => 'datetime_select' %>
+    <span class="description">Ex: a simple text</span>
   </div>
-  <div class="field">
-    <%= f.label :referral_date %><br />
-    <%= f.datetime_select :referral_date %>
+
+  <div class="group">
+    <%= f.label :completed_date, t("activerecord.attributes.waiting_list.completed_date", :default => "Completed date"), :class => :label %>
+    <%= f.datetime_select :completed_date, :class => 'datetime_select' %>
+    <span class="description">Ex: a simple text</span>
   </div>
-  <div class="field">
-    <%= f.label :acceptance_date %><br />
-    <%= f.datetime_select :acceptance_date %>
-  </div>
-  <div class="field">
-    <%= f.label :completed_date %><br />
-    <%= f.datetime_select :completed_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+        
+<div class="group navform wat-cf">
+  <button class="button" type="submit">
+    <%= image_tag("web-app-theme/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}") %> <%= t("web-app-theme.save", :default => "Save") %>
+  </button>  
+  <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.cancel", :default => "Cancel")}")} #{t("web-app-theme.cancel", :default => "Cancel")}", waiting_lists_path, :class => "button" %> 
+</div>

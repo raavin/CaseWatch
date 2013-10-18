@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Web App</title>
 	<%= stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/drastic-dark/style", :cache => true %>
-	<%= stylesheet_link_tag "themes/drastic-dark/print", :media => "print" %>
 </head>
 <body>
   <div id="container">
@@ -27,27 +26,19 @@
       </div>      
       <div id="main-navigation">
         <ul class="wat-cf">
+          
           <li <% if params[:controller] == "clients" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "Clients"), clients_path %></li>
           <li <% if params[:controller] == "waiting_lists" %> class="active"<%end%>><%= link_to t("web-app-theme.waiting_lists", :default => "Referrals"), waiting_lists_path %></li>
+          <% if params[:action] =! "all" %>
+          <li <% if params[:controller] == "expenditures" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "#{@client.first_name}'s Expenditures"), client_expenditures_path %></li>
+          <li <% if params[:controller] == "case_notes" %> class="active"<%end%>><%= link_to t("web-app-theme.clients", :default => "#{@client.first_name}'s Case Notes"), client_case_notes_path %></li>
+          <% end %>
         </ul>
       </div>
     </div>    
     <div id="wrapper" class="wat-cf">
       <div class="flash">
-     <% if flash[:notice] && flash[:error]%> 
-        <% if flash[:notice]%> 
-        <div class="message notice"><p><%= flash[:notice] %></p></div>
-        <%end%>
-    <%elsif flash[:error]%>
-          <div class="message error"><p><%= flash[:error] %></p></div>
-    <%elsif flash[:warning]%>
-          <div class="message warning"><p><%= flash[:warning] %></p></div>
-    <%else%>
-        <% if flash[:notice]%>
-          <div class="message notice"><p><%= flash[:notice] %></p></div>
-        <%end%>
-    <%end%>
-      </div>
+     
       <div id="main">
         <%= yield %>
         <div id="footer">

@@ -1,35 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", waiting_lists_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_waiting_list_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", waiting_list_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+        <p>
+          <b><%= t("activerecord.attributes.waiting_list.client_id", :default => t("activerecord.labels.client_id", :default => "Client")) %>:</b>
+          <%= @waiting_list.client_id %>
+        </p>
 
-<p>
-  <b>Consumer:</b>
-  <%= @waiting_list.consumer %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.waiting_list.service_id", :default => t("activerecord.labels.service_id", :default => "Service")) %>:</b>
+          <%= @waiting_list.service_id %>
+        </p>
 
-<p>
-  <b>Service:</b>
-  <%= @waiting_list.service %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.waiting_list.referral_date", :default => t("activerecord.labels.referral_date", :default => "Referral date")) %>:</b>
+          <%= @waiting_list.referral_date %>
+        </p>
 
-<p>
-  <b>Category:</b>
-  <%= @waiting_list.category %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.waiting_list.accepted_date", :default => t("activerecord.labels.accepted_date", :default => "Accepted date")) %>:</b>
+          <%= @waiting_list.accepted_date %>
+        </p>
 
-<p>
-  <b>Referral date:</b>
-  <%= @waiting_list.referral_date %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.waiting_list.completed_date", :default => t("activerecord.labels.completed_date", :default => "Completed date")) %>:</b>
+          <%= @waiting_list.completed_date %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_waiting_list_path(@waiting_list), :class => "button" %> 
+        <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", waiting_list_path(@waiting_list), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Acceptance date:</b>
-  <%= @waiting_list.acceptance_date %>
-</p>
-
-<p>
-  <b>Completed date:</b>
-  <%= @waiting_list.completed_date %>
-</p>
-
-
-<%= link_to 'Edit', edit_waiting_list_path(@waiting_list) %> |
-<%= link_to 'Back', waiting_lists_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

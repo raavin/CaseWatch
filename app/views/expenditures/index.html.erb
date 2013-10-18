@@ -1,31 +1,84 @@
-<h1>Listing expenditures</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", client_expenditures_path  %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "Add New Casenote")}", new_client_case_note_path %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "Add New Expenditure")}", new_client_expenditure_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Expenditures for <%= @client.first_name + " " + @client.last_name%></h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">Receipt No</th>
+										<th>
+					<%= t("activerecord.attributes.expenditure.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>
+</th>
+<th>
+          <%= t("activerecord.attributes.expenditure.user_id", :default => t("activerecord.labels.user_id", :default => "Service")) %>
+</th>
+					          <th><%= t("web-app-theme.created_at", :default => "Description")  %></th>
+					          <th style = "text-align: right;"><%= t("web-app-theme.created_at", :default => "Amount")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @expenditures.each do |expenditure| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= expenditure.id %>
+          </td>
+										<td>
+					
+						<%= expenditure.user.email %>
+					</td>
+					<td>
+          
+            <%= expenditure.service.service_name %>
+          </td>
+										<td>
+            <%= expenditure.description %>
+          </td>
+                              <td style = "text-align: right;">
+            <%= number_to_currency(expenditure.amount) %>
+            <%= in_place_editor_field :expenditure, 'amount' %>
+          </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", client_expenditure_path(@client,expenditure) %> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_client_expenditure_path(@client,expenditure) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", client_expenditure_path(@client,expenditure), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>          
+        <% end -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
 
-<table>
-  <tr>
-    <th>Client</th>
-    <th>User</th>
-    <th>Service</th>
-    <th>Description</th>
-    <th>Amount</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+          </td>
+                    <td>
 
-<% @expenditures.each do |expenditure| %>
-  <tr>
-    <td><%= expenditure.client %></td>
-    <td><%= expenditure.user %></td>
-    <td><%= expenditure.service %></td>
-    <td><%= expenditure.description %></td>
-    <td><%= expenditure.amount %></td>
-    <td><%= link_to 'Show', expenditure %></td>
-    <td><%= link_to 'Edit', edit_expenditure_path(expenditure) %></td>
-    <td><%= link_to 'Destroy', expenditure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+          </td>
+          <td>
 
-<br />
+          </td>
+                    <td>
+            <b>Total</b>
+          </td>
+          <td style = "text-align: right;">
+            <b><%= number_to_currency(@client_total) %></b>
+          </td>
+          <td class="last">
+          </td>
+        </tr>
 
-<%= link_to 'New Expenditure', new_expenditure_path %>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+        <%= will_paginate @expenditures  %>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'shared/sidebar') -%>

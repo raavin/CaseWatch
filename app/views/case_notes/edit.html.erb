@@ -1,6 +1,19 @@
-<h1>Editing case_note</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", client_case_notes_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_client_case_note_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_client_case_note_path %></li>
+    </ul>
+  </div>          
+  <div class="content">            
+    <h2 class="title"><%= t("web-app-theme.edit", :default => "Edit") %> CaseNote</h2>
+    <div class="inner">
+      <% form_for([@client, @case_note], :html => { :class => :form }) do |f| -%>
+        <%= render :partial => @case_note, :locals => {:f => f} %>
+      <% end -%>
+    </div>
+  </div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @case_note %> |
-<%= link_to 'Back', case_notes_path %>
+<% content_for :sidebar, render(:partial => 'shared/sidebar') -%>

@@ -1,0 +1,26 @@
+<div class="block">
+  <h3>Simple Block</h3>
+  <div class="content">
+    <p>  
+       <span class = "services"><%= link_to "All Services" + 
+              " (" + h(WaitingList.count(:conditions => ['completed_date IS NULL'])) + ")", waiting_lists_path%>
+       </span>
+    </p>
+          <% for service in @services %>
+    <p>      
+       <span class = "services">
+         <%= link_to service.service_name + " (" + h(WaitingList.count(:conditions => ['completed_date IS NULL AND service_id=?', service.id.to_s + '%'])) + ")", {:controller => "waiting_lists", :action => "index", :id => service.id} %>
+       </span>
+    </p>
+            
+       
+          <% end %>
+  </div>
+</div>
+<div class="block">
+  <h3>Links</h3>
+  <ul class="navigation">
+    <li><a href="#">Link 1</a></li>
+    <li><a href="#">Link 2</a></li>
+  </ul>
+</div>

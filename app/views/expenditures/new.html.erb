@@ -1,5 +1,18 @@
-<h1>New expenditure</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", client_expenditures_path  %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_client_expenditure_path %></li>
+    </ul>
+  </div>          
+  <div class="content">            
+    <h2 class="title"><%= t("web-app-theme.new", :default => "New")%>  Expenditure for <%= @client.first_name + " " + @client.last_name%></h2>
+    <div class="inner">
+      <% form_for([@client, @expenditure], :html => { :class => :form }) do |f| -%>
+        <%= render :partial => @expenditure, :locals => {:f => f} %>
+      <% end -%>
+    </div>
+  </div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', expenditures_path %>
+<% content_for :sidebar, render(:partial => 'shared/sidebar') -%>
